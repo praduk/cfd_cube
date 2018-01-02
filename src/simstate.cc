@@ -59,8 +59,8 @@ void simMouseMove(int x, int y)
 
         if( xmin < 0 ) xmin = 0;
         if( ymin < 0 ) ymin = 0;
-        if( xmax >= WIDTH  ) xmin = WIDTH-1;
-        if( ymax >= HEIGHT ) ymin = HEIGHT-1;
+        if( xmax >= WIDTH  ) xmax = WIDTH-1;
+        if( ymax >= HEIGHT ) ymax = HEIGHT-1;
 
         if( Rmouse )
         {

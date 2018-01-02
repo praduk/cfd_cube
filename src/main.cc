@@ -4,6 +4,9 @@
 * Copyright (c) 2017-2018 Pradu Kannan. All rights reserved.
 */
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include <stdio.h>
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
@@ -56,8 +59,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    int x = xpos + 0.5;
-    int y = ypos + 0.5;
+    int x = static_cast<int>(xpos + 0.5);
+    int y = static_cast<int>(ypos + 0.5);
     simMouseMove(x,y);
 }
 
