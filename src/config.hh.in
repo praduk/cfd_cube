@@ -1,0 +1,26 @@
+/*
+* config.hh
+* 
+* Copyright (c) 2017 Pradu Kannan. All rights reserved.
+*/
+
+#ifndef ___CONFIG_HH
+#define ___CONFIG_HH
+
+#if !defined(UNIX) || !defined(WIN32)
+#cmakedefine UNIX
+#cmakedefine WIN32
+#endif
+#define U_SIZEOF_P @CMAKE_SIZEOF_VOID_P@
+#define U_PLATFORM "@CMAKE_SYSTEM@"
+#define U_PLATFORM_@CMAKE_SYSTEM_NAME@
+#define U_PROCESSOR "@CMAKE_SYSTEM_PROCESSOR@"
+#define U_PROCESSOR_@CMAKE_SYSTEM_PROCESSOR@
+#define U_COMPILER  "@CMAKE_CXX_COMPILER_ID@" //One of Clang, GNU, Intel, MSVC
+#define U_COMPILER_@CMAKE_CXX_COMPILER_ID@
+#cmakedefine U_BIG_ENDIAN
+#define DATA_DIR "@CMAKE_SOURCE_DIR@/data"
+
+
+#endif  // ___CONFIG_HH
+
