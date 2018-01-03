@@ -2,12 +2,12 @@
 # Application Build File
 #
 
-cmake_minimum_required( VERSION 3.2 )
+cmake_minimum_required( VERSION 3.8 FATAL_ERROR )
 
 # Set Project Name
 set( PNAME cfdbox )
 
-project( ${PNAME}_project )
+project( ${PNAME}_project LANGUAGES CXX CUDA )
 
 include (TestBigEndian)
 TEST_BIG_ENDIAN(U_BIG_ENDIAN)
@@ -32,6 +32,9 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL CACHE BOOL "" FORCE)
 add_subdirectory(glfw)
 
+add_definitions(-DCMAKE_SECURE_NO_DEPRECATE -DCMAKE_SECURE_NO_WARNINGS)
+include_directories(${PNAME} ${PROJECT_SOURCE_DIR}/nuklear)
+
 # Find all C++ source files
 file(GLOB_RECURSE HDRS
     ${PROJECT_SOURCE_DIR}/src/*.h
@@ -40,6 +43,7 @@ file(GLOB_RECURSE HDRS
 file(GLOB_RECURSE SRCS
     ${PROJECT_SOURCE_DIR}/src/*.c
     ${PROJECT_SOURCE_DIR}/src/*.cc
+    ${PROJECT_SOURCE_DIR}/src/*.cu
     ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 # Add Include Directories

@@ -14,19 +14,25 @@ typedef unsigned char U8;
 extern U8 image[HEIGHT][WIDTH][3];
 
 //Input States
-extern U8 cursorSize;
+extern int cursorSize;
 extern bool Rmouse; //down?
 extern bool Lmouse; //down?
-extern int lastX;  //last cursor x
-extern int lastY;  //last cursor y
-extern int action; //what action does mouse do?
+extern bool LShift;  //down?
+extern int  lastX;  //last cursor x
+extern int  lastY;  //last cursor y
+extern int  action; //what action does mouse do?
 enum
 {
     ACT_CLEAR, //clear node
-    ACT_BC     //add boundary condition
+    ACT_DIRICHLET,  //add dirichlet boundary condition
+    ACT_BODY  //add mixed dirichlet/neumann (robin) boundary condition
 };
 
+//Flow States (private)
+typedef double F;
+
 void simClear();
+void simFill();
 void simMouseMove(int x, int y);
 
 
