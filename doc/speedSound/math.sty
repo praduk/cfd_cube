@@ -1,0 +1,174 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{math}[2017/01/15 Math Macros]
+
+\RequirePackage{amsmath}
+%\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage{bm}
+\RequirePackage{mathtools}
+\RequirePackage{esint}
+
+\RequirePackage{tikz}
+\RequirePackage{framed}
+\RequirePackage[framed,amsthm]{ntheorem}
+
+\RequirePackage{braket}
+\RequirePackage{scalerel}
+
+\usetikzlibrary{calligraphy}
+
+% Bold Face Fonts
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Quats}{\mathbb{H}}
+
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\Var}[1]{ \operatorname{Var} \left( {#1} \right) }
+
+\newcommand{\m}[1]{\bm{#1}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\ct}[1]{{#1}^\text{H}}
+\newcommand{\tp}[1]{{#1}^\text{T}}
+\newcommand{\nulset}{\varnothing}
+\newcommand{\sand}{\bigcap}
+\newcommand{\sor}{\bigcup}
+\newcommand{\nsubg}{\vartriangleleft}
+\newcommand{\subg}{\le} %Subgroup
+\newcommand{\psubg}{<} %Proper Subgroup
+\newcommand{\isoto}{\cong} %Isomorphic to
+\newcommand{\bslash}{\char`\\}
+
+\theoremstyle{definition}
+%\newtheorem{thm}{Theorem}[chapter]
+%\newtheorem{thm}{Theorem}[section]
+\newtheorem{thm}{Theorem}
+\newtheorem{prp}[thm]{Proposition}
+\newtheorem{df}[thm]{Definition}
+\newtheorem{ax}[thm]{Axiom}
+\newtheorem{rk}{Remark}
+\newtheorem{trick}[rk]{Trick}
+\newtheorem{lem}[thm]{Lemma}
+
+%\newtheorem{thm}{Theorem}[chapter]
+%\newtheorem{prp}{Proposition}[chapter]
+%\newtheorem{df}{Definition}[chapter]
+%\newtheorem{ax}{Axiom}[chapter]
+%\newtheorem{trick}{Trick}[chapter]
+%\newtheorem{rk}{Remark}[chapter]
+%\newtheorem{lem}{Lemma}[chapter]
+
+%\theoremstyle{nonumberplain}
+%\newtheorem{proof}{Proof}
+\renewenvironment{proof}{\emph{Proof.} }{\hfill$\square$\\}
+
+
+% Tensor Product
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+\newcommand{\dsum}[1]{%
+  \mathbin{\mathop{\oplus}\displaylimits_{#1}}%
+}
+
+\DeclareMathOperator{\Perm}{Perm}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\Null}{Null}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\GF}{GF}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\su}{su}
+\DeclareMathOperator{\opO}{O}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\so}{so}
+\DeclareMathOperator{\opE}{E}
+\DeclareMathOperator{\SE}{SE}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator*{\Res}{Res}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Ad}{Ad}
+\newcommand{\Admat}[1][]{\Ad^{\mathrlap{\vee}\wedge}_{#1}}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\tr}{Tr}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\graph}{graph}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\img}{Im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\rad}{rad}
+
+\newcommand{\genby}[1]{\langle {#1} \rangle}
+
+%Lie Algebra to Lie Group Vector-Space Isomorphisms
+\newcommand{\rnla}[2][]{\left[ {#2} \right]^\land_{#1}}
+\newcommand{\larn}[2][]{\left[ {#2} \right]^\lor_{#1}}
+
+%Big O notation
+\newcommand{\BigO}[2][]{ \operatorname*{\mathcal{O}}_{#1} \left( {#2} \right) }
+
+%Lie Group Jacobians
+\newcommand{\Phil}[2]{ \Phi_l^{#1} \left( {#2} \right) }
+\newcommand{\Phir}[2]{ \Phi_r^{#1} \left( {#2} \right) }
+
+%Evaluate at
+\newcommand{\evalat}[1]{ \left. \left( #1 \right) \right|}
+
+%Macros for derivatives
+\newcommand{\dd}[3][]{\dfrac{d^{#1} {#2}}{d {#3}^{#1} }}
+\newcommand{\pd}[3][]{\dfrac{\partial^{#1} {#2}}{\partial {#3}^{#1} }}
+%\newcommand{\rdel}{\nabla}
+\tikzset{
+    rdelpic/.pic={
+            \clip (0,0) -- (1,0) -- (0.5,-1) -- cycle;%
+            \pen (0:-0.125) -- (0:0) (0:-.1875)--(0:-.28125);%
+            \calligraphy (1,0) -- (0.5,-1);%
+            \pen (0:0.046875) -- (0:0) ;%
+            \calligraphy (0,0) -- (0.5,-1);%
+            \pen (-90:0.09375) -- (0:0) ;%
+            \calligraphy (0,0) -- (1,0);%
+    }}
+\tikzset{
+    ldelpic/.pic={
+            \clip (0,0) -- (1,0) -- (0.5,-1) -- cycle;
+            \pen (0:-0.046875) -- (0:0) ;
+            \calligraphy (1,0) -- (0.5,-1);
+            \pen (0:0.125) -- (0:0) (0:.1875)--(0:.28125);
+            \calligraphy (0,0) -- (0.5,-1);
+            \pen (-90:0.09375) -- (0:0) ;
+            \calligraphy (0,0) -- (1,0);
+    }}
+\DeclareMathOperator{\rdel}{\scalebox{0.305}{\raisebox{-1.4pt}{\tikz\pic{rdelpic};}}}
+\DeclareMathOperator{\ldel}{\scalebox{0.305}{\raisebox{-1.4pt}{\tikz\pic{ldelpic};}}}
+%\DeclareMathOperator{\rdel}{\scalerel{\tikz\pic{rdelpic};}{\nabla}}
+%\DeclareMathOperator{\ldel}{\scalerel{\tikz\pic{ldelpic};}{\nabla}}
+
+%Macros for ease of use of parenthesis (p), square brackets (s), and braces (b)
+\newcommand{\expp}[1]{ \exp\left( {#1} \right) }
+\newcommand{\expprnla}[2][]{ \exp\left( \rnla[#1]{#2} \right) }
+\newcommand{\exps}[1]{ \exp\left[ {#1} \right] }
+\newcommand{\expb}[1]{ \exp\left\{ {#1} \right\} }
+\newcommand{\logp}[1]{ \log\left( {#1} \right) }
+\newcommand{\logs}[1]{ \log\left[ {#1} \right] }
+\newcommand{\logb}[1]{ \log\left\{ {#1} \right\} }
+
+

@@ -1,0 +1,294 @@
+\documentclass{doc}
+
+\usepackage{tikz}
+\usetikzlibrary{cd, matrix, calc, arrows}
+
+\title{Derivation of the Isentropic Speed of Sound, Bernoulli's Principle, and Normal Shock Equations}
+\author{P. Kannan}
+\classification{}
+\logoraw{}
+
+
+\begin{document}
+
+\begin{rk}
+The inviscid 1D advection equation describes the motion of an
+abstract wave.  It moves the initial solution ``to the right'' by
+a charecteristic velocity.
+\end{rk}
+
+\begin{thm}[Solution of the 1D Inviscid Advection Equation]
+Let $\phi:\R^2\to \R$ map $(t,x)\mapsto \phi(t,x)$.
+Let the charecteristic velocity $\alpha \in \R$.
+Given initial conditions $\phi(0,x)$, the solution to the advection
+equation
+\begin{equation}
+    \pd{\phi}{t} + \alpha \pd{\phi}{x} = 0.
+\end{equation}
+is
+\begin{equation}
+    \phi(t,x) = \phi(0,x-\alpha t).
+\end{equation}
+\end{thm}
+\begin{proof}
+The advection equation is solved by the ``method of charecteristics".
+Suppose the solution $z=\phi(t,x)$ was known.  The solution surface can
+be described by
+\begin{equation}
+    f(t,x,z) = \phi(t,x) - z = 0.
+\end{equation}
+The original PDE can now be written as
+\begin{equation}
+0 = \pd{f}{t} \dd{t}{\tau} + \pd{f}{x} \dd{x}{\tau} + \pd{z}{x} \dd{z}{\tau}
+    = \begin{bmatrix}
+        \pd{f}{t} & \pd{f}{x} & \pd{f}{z}
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 \\
+        \alpha \\
+        0
+    \end{bmatrix}.
+\end{equation}
+
+Let $t(\tau)$, $x(\tau)$ and $z(\tau)$ parameterize any curve on the solution 
+surface.  Then, because $f(t(\tau),x(\tau),z(\tau))=0$ for all $\tau$,
+\begin{align}
+    0 &= \dd{f}{\tau} = \pd{f}{t} \dd{t}{\tau} + \pd{f}{x} \dd{x}{\tau} + \pd{z}{x} \dd{z}{\tau}
+    = \begin{bmatrix}
+        \pd{f}{t} & \pd{f}{x} & \pd{f}{z}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \dd{t}{\tau} \\
+        \dd{x}{\tau} \\
+        \dd{z}{\tau}
+    \end{bmatrix}.
+\end{align}
+Therefore 
+\begin{align}
+    \dd{}{\tau} \begin{bmatrix}
+        t \\
+        x \\
+        z
+    \end{bmatrix} &= 
+    \begin{bmatrix}
+        1 \\
+        \alpha \\
+        0
+    \end{bmatrix}.
+\end{align}
+\end{proof}
+Define $t(\tau=0)=0$, $x(\tau=0)=x_0$, $z(\tau=0)=\phi(0,x_0)$.
+Solving the ODE with the initial conditions gives
+\begin{align}
+    t &= \tau. \\
+    x &= \alpha \tau + x_0= \alpha t + x_0. \\
+    z &= \phi(0,x_0).
+\end{align}
+Then,
+\begin{equation}
+    \phi(0, x_0) = z(\tau) = \phi(t(\tau),x(\tau)) = \phi(t,\alpha t + x_0).
+\end{equation}
+With some more abuse of notation, define $x=\alpha t+x_0$ and this gives
+\begin{equation}
+    \phi(0, x-\alpha t) = \phi(t,x).
+\end{equation}
+
+\begin{rk}[Solution of Systems of Advection Equations]
+    Suppose $\phi:\R^2 \to \R^n$ map $(t,x)\mapsto \phi(t,x)$.
+    Let $A\in M_n(\R)$ be diagonalizable with eigendecomposition
+    $A=S \Lambda S^{-1}$.  Let the system of PDEs to be solved be
+    \begin{equation}
+        \pd{\phi}{t} + A \pd{\phi}{x} = 0.
+    \end{equation}
+    By using the eigendecomposition of $A$,
+    \begin{align}
+        0 &= \pd{\phi}{t} + A \pd{\phi}{x} \\
+        0 &= \pd{\phi}{t} + S \Lambda S^{-1} \pd{\phi}{x} \\
+        0 &= S^{-1} \pd{\phi}{t} + \Lambda S^{-1} \pd{\phi}{x}.
+    \end{align}
+    Define eigenstates $\psi = S^{-1} \phi$.  Then,
+    \begin{equation}
+        0 = \pd{\psi}{t} + \Lambda \pd{\psi}{x}.
+    \end{equation}
+    Note that this is now a system of $n$ 1D advection equations
+    each with a charecteristic velocity associated with an
+    eigenvalue of $A$.  After solving for $\psi$, $\phi$
+    can be obtained by substituting $\phi = S\psi$.
+\end{rk}
+
+\begin{rk}[Isentropic Equations of Flow]
+The Euler Equations describe the motion of an isentropic fluid.
+They can be arrived at by simplifying the Navier-Stokes equations.
+$\rho$, $v$, and $u$ are density, velocity, and specific internal energy.
+$r=[x;y;z]$.
+\begin{enumerate}
+    \item Conservation of Mass.
+        \begin{equation}
+            \pd{\rho}{t} + (\rho \tp{v}) \ldel_r = 0
+        \end{equation}
+    \item Conservation of Momentum.
+        \begin{equation}
+            \pd{ \rho v }{t} + (\rho v \tp{v}) \ldel_r + \rdel_r p =  0
+        \end{equation}
+    \item Conservation of Internal Energy Density.
+        \begin{equation}
+            \pd{\rho u}{t} + (\rho u \tp{v}) \ldel_r + p \tp{\rdel_r} v = 0.
+        \end{equation}
+\end{enumerate}
+\end{rk}
+
+\begin{thm}[The Isentropic Speed of Sound]
+    The speed of sound $\lambda$ for a gas under isentropic dynamics is
+    \begin{equation}
+        \lambda = \sqrt{\left(\pd{p}{\rho}\right)_{q}},
+    \end{equation}
+    where the partial is taken adiabatically.  In particular,
+    \begin{equation}
+        \lambda = \sqrt{\gamma \frac{\rho}{p}}.
+    \end{equation}
+    and for an ideal gas,
+    \begin{equation}
+        \lambda = \sqrt{\gamma R T}.
+    \end{equation}
+\end{thm}
+\begin{proof}
+Let the ambient density be $\rho_0$, the ambient pressure be $p_0$,
+the ambient temperature $T_0$ and the ambient momentum be zero.
+Let the $\rho$, $p$ and $T$ be adiabatically perturbed an arbitrarily small amount.
+Let perturbed quantities be prefixed by a $\Delta$, for example $\Delta \rho$ for
+the perturbed density.
+Let the perturbed pressure be $\Delta p = \left(\pd{\rho}{p}\right)_q \Delta\rho$
+where $\pd{\rho}{p}$ is taken adaibatically.  Because there are no viscous effects or
+heat transfer (isentropic dynamics), the 1D isentropic equations of flow are
+\begin{enumerate}
+    \item Conservation of Mass.  Let momentum $w=\rho v$.
+        \begin{equation}
+            \pd{\rho}{t} + \pd{w}{x} = 0.
+        \end{equation}
+    \item Conservation of Momentum.
+        \begin{equation}
+            \pd{w}{t} + \pd{ p + w^2/\rho }{x} = 0.
+        \end{equation}
+\end{enumerate}
+Substituting $w = \Delta w$, $p=p_0 + \pd{p}{\rho} \Delta \rho$, $\rho = \rho_0 + \Delta \rho$
+gives 
+\begin{equation}
+0 = \pd{}{t} \begin{bmatrix}
+    \Delta \rho \\
+    \Delta w
+\end{bmatrix} +
+\pd{}{x} \begin{bmatrix}
+    \Delta w \\
+    \frac{(\Delta w)^2}{\rho + \Delta \rho} + p_0 + \pd{p}{\rho} \Delta \rho
+\end{bmatrix}.
+\end{equation}
+Linearizing the expression within $\pd{}{x}(\cdot)$ about $\Delta w=0$
+and $\Delta \rho=0$ gives
+\begin{equation}
+0 = \pd{}{t} \begin{bmatrix}
+    \Delta \rho \\
+    \Delta w
+\end{bmatrix} +
+\underbrace{\begin{bmatrix}
+    0 & 1 \\
+    \pd{p}{\rho} & 0
+\end{bmatrix}}_{A}
+\pd{}{x} \begin{bmatrix}
+    \Delta \rho \\
+    \Delta w
+\end{bmatrix}.
+\end{equation}
+Because $A$ has zero trace, it has eigenvalues $\lambda$ and $-\lambda$.
+The product of the eigenvalues of $A$ is the determinant of $A$.  Therefore
+\begin{align}
+    -\lambda^2 &= -\pd{p}{\rho}. \\
+    \lambda &= \sqrt{\pd{p}{\rho}}.
+\end{align}
+Because perturbations are performed adiabatically,  the change
+in internal energy is (let $m$=mass),
+\begin{align}
+    \partial U &= Q - p \partial V \\
+    \partial U &= -p \partial V \\
+    \frac{1}{m} \partial U &= -\frac{1}{m} p \partial V
+\end{align}
+Substituting
+\begin{align}
+    \rho &= \frac{m}{V} \\
+    \partial \rho &= -\frac{m}{V^2} \partial V = -\rho \frac{\partial{V}}{V} \\
+    \partial V &= -V\frac{\delta\rho}{\rho} \\
+    \frac{\partial V}{m} &= -\frac{\delta\rho}{\rho^2}
+\end{align}
+into the equations give
+\begin{align}
+    \partial u &= \frac{p}{\rho^2}\partial \rho \\
+    c_v \partial T &= \frac{p}{\rho^2}\partial \rho.
+\end{align}
+The change in enthalpy is
+\begin{align}
+    H &= U + pV \\
+    \partial H &= \partial U + p \partial V + V \partial p \\
+    \partial H &= -p \partial V + p \partial V + V \partial p \\
+    \partial H &= V \partial p \\
+    \frac{1}{m} \partial H &= \frac{v}{m} \partial p \\
+    \partial h &= \frac{v}{m} \partial p \\
+    \partial h &= \frac{\partial p}{\rho} \\
+    c_p \partial T &= \frac{\partial p}{\rho}.
+\end{align}
+Dividing equations,
+\begin{align}
+    \frac{c_p}{c_v} &=  \frac{\partial p}{\rho}  \frac{\rho^2}{p\partial \rho} \\
+    \frac{c_p}{c_v} &= \frac{\rho \partial p}{p \partial\rho } \\
+    \gamma &= \frac{\rho \partial p}{ p \partial\rho } \\
+    \gamma \frac{p}{\rho} &= \pd{p}{\rho} \\
+     \pd{p}{\rho} &= \gamma R T
+\end{align}
+Therefore,
+\begin{equation}
+    \lambda = \sqrt{\left(\pd{p}{\rho}\right)_{q}} = \sqrt{\gamma R T}.
+\end{equation}
+\end{proof}
+
+\begin{thm}[Some Isentropic Relations for an Ideal Gas]
+\begin{equation}
+    \frac{p}{p_0} = \left( \frac{\rho}{\rho_0} \right)^\gamma = \left( \frac{T}{T_0} \right)^\frac{\gamma}{\gamma-1} = \left( \frac{\lambda}{\lambda_0} \right)^\frac{2\gamma}{\gamma-1}
+\end{equation}
+\end{thm}
+\begin{proof}
+From the proof for the speed of sound,
+\begin{align}
+    \gamma \frac{p}{\rho} &= \pd{p}{\rho} \\
+    \gamma \frac{\partial \rho}{\rho} &= \frac{\partial p}{p} \\
+    C_0 + \gamma \log \rho &= \log p \\
+    C_1 \rho^\gamma &= p \\
+    \left( \frac{\rho}{\rho_0} \right)^\gamma &= \frac{p}{p_0} \\
+    \left( \frac{\rho}{\rho_0} \right)^\gamma &= \frac{\rho R T}{\rho_0 R T_0} \\
+    \left( \frac{\rho}{\rho_0} \right)^{\gamma-1} &= \frac{T}{T_0} \\
+    \frac{p}{p_0} &= \left( \frac{T}{T_0} \right)^\frac{\gamma}{\gamma-1} \\
+    \lambda^2 &= \gamma R T \\
+    T &= \frac{\lambda^2}{\gamma R} \\
+    \frac{p}{p_0} &= \left( \frac{\lambda^2 \gamma R}{ \gamma R a_0^2} \right)^\frac{\gamma}{\gamma-1} \\
+    \frac{p}{p_0} &= \left( \frac{\lambda}{\lambda_0} \right)^\frac{2\gamma}{\gamma-1}
+\end{align}
+\end{proof}
+
+\begin{thm}[Compressible Bernoulli's Princple]
+...
+\end{thm}
+\begin{thm}[Normal Shock Equations]
+...
+\end{thm}
+
+%\begin{thm}[Bernoulli's Princple]
+%Let the stagnation enthalpy $h_0\in \R$ be a constant.
+%Then, for isentropic dynamics,
+%\begin{equation}
+%    \frac{v^2}{2} + h = h_0.
+%\end{equation}
+%\end{thm}
+%\begin{proof}
+%Total energy density $E = \rho( u+\frac{v^2}{2} )$ is a conserved quantity.
+%Let $v_0=0$.  Then $\rho_0 u_0 = \rho( u+\frac{v^2}{2} )$.
+%\end{proof}
+
+\end{document}
+
